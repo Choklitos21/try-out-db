@@ -1,6 +1,5 @@
 import {
     Column,
-    CreateDateColumn,
     Entity,
     PrimaryGeneratedColumn
 } from "typeorm";
@@ -11,10 +10,10 @@ export class User {
     id: string
 
     @Column({type: 'varchar', length: 250})
-    firstname: string
+    first_name: string
 
     @Column({type: 'varchar', length: 250})
-    lastname: string
+    last_name: string
 
     @Column({type: 'int'})
     age: number
