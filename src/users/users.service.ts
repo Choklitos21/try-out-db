@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import {Repository} from "typeorm";
 import {User} from "./entities/user.entity";
 import {InjectRepository} from "@nestjs/typeorm";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -15,6 +16,8 @@ export class UsersService {
   
   async createUser(userData: CreateUserDto) {
     try {
+      const saltOrRounds = 10;
+      userData.password = await bcrypt.hash(userData.password, saltOrRounds);
       return await this.userRepo.save(userData)
     } catch (e) {
       throw new HttpException('User cannot be created', HttpStatus.BAD_GATEWAY)
@@ -31,7 +34,15 @@ export class UsersService {
 
   async findOne(id: string) {
     try {
-      return await this.userRepo.find({where: {id: id}})
+      return await this.userRepo.findOne({where: {id: id}})
+    } catch (e) {
+      throw new HttpException('User cannot be found', HttpStatus.NOT_FOUND)
+    }
+  }
+
+  async findOneByEmail(email: string) {
+    try {
+      return await this.userRepo.findOne({where: {email: email}})
     } catch (e) {
       throw new HttpException('User cannot be found', HttpStatus.NOT_FOUND)
     }
