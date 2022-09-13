@@ -1,9 +1,10 @@
 import {
     Column,
-    CreateDateColumn,
     Entity,
+    CreateDateColumn,
     PrimaryGeneratedColumn
 } from "typeorm";
+import { UserRoles } from '../../utils/enums/user-roles.enum';
 
 @Entity({name: 'users'})
 export class User {
@@ -24,6 +25,9 @@ export class User {
 
     @Column({type: 'varchar'})
     password: string
+
+    @Column('varchar', {array: true, default: [`${UserRoles.USER}`]})
+    roles: string[]
 
     @CreateDateColumn({ name: 'created_at'})
     createdAt: Date;

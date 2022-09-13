@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import * as Joi from "joi";
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import {TypeOrmModule} from "@nestjs/typeorm";
-import {ConfigModule, ConfigService} from "@nestjs/config";
 import { UsersModule } from './users/users.module';
-import * as Joi from "joi";
-import {AuthModule} from "./auth/auth.module";
+import { AuthModule } from "./auth/auth.module";
+import { BooksModule } from './books/books.module';
 
 @Module({
   imports: [
@@ -43,7 +44,8 @@ import {AuthModule} from "./auth/auth.module";
           }),
       }),
       UsersModule,
-      AuthModule
+      AuthModule,
+      BooksModule
   ],
   controllers: [AppController],
   providers: [AppService],

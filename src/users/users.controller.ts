@@ -1,9 +1,22 @@
+import { 
+  Get, 
+  Post, 
+  Body, 
+  Patch, 
+  Param, 
+  Delete,
+  Controller, 
+} from '@nestjs/common';
+import { 
+  ApiTags,
+  ApiBody, 
+  ApiOperation, 
+  ApiCreatedResponse, 
+  ApiBadRequestResponse, 
+} from "@nestjs/swagger";
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserResponseDto } from "./dto/user-response.dto";
-import { ApiBadRequestResponse, ApiBody, ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 
 @ApiTags('Users')
 @Controller('users')
@@ -11,10 +24,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('/createUser')
-  @ApiBody({ type: [CreateUserDto] })
+  @ApiBody({ type: CreateUserDto })
   @ApiOperation({ operationId: "createUser", description: "Create a user" })
-  @ApiCreatedResponse({ description: "Response the user created", type: [UserResponseDto] })
-  @ApiBadRequestResponse({ description: "Error trying to create a user" })
   createUser(@Body() userData: CreateUserDto) {
     return this.usersService.createUser(userData);
   }
