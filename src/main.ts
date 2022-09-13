@@ -30,6 +30,6 @@ async function bootstrap() {
 
   logger.log(`Running on port ${PORT}`)
 
-  await app.listen(PORT);
+  await app.listen(PORT, '0.0.0.0');
 }
 bootstrap();
