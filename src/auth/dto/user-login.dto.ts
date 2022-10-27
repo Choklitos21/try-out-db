@@ -3,7 +3,7 @@ import {
     IsEmail,
     IsString,
 } from 'class-validator';
-
+//*
 export class UserLoginDto {
     @ApiProperty({type: String})
     @IsEmail()
@@ -13,4 +13,5 @@ export class UserLoginDto {
     @IsString()
     password: string;
 
+    
 }
